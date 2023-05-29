@@ -165,9 +165,7 @@ class MentionFeatures:
 			# feature indicators: ['nh', 'h', 'f', 'm', 'n', 'sg', 'pl']
 			# multiple values can be True!
 			# if a feature is unknown, all of its possible values will be False
-			label = np.zeros(25)
-			if 'category' not in mention.features:
-				mention.features['category'] = 'LOC.water'
+			label = np.zeros(7 + len(mention_categories))
 			label[0] = mention.features['human'] == 0
 			label[1] = mention.features['human'] == 1
 			label[2] = 'f' in (mention.features['gender'] or '')
@@ -312,7 +310,6 @@ def evaluate(validationfiles, parsesdir, annotations, tokenizer, bertmodel):
 				'n' in (mention.origfeat['gender'] or ''),
 				mention.origfeat['number'] == 'sg',
 				mention.origfeat['number'] == 'pl',
-    			#De entiteit categories kinne hjir tafoege wurde
 				]
 
 	def featvalsfallback(mention, probs):
